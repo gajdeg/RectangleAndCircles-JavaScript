@@ -54,10 +54,12 @@ btnRedo.addEventListener("click", () => {
 btnSave.addEventListener("click", () => {
   blue = addRectangle(rectangle);
   coords = getNewCoords(coords);
+  undone = [];
   render();
 });
 
 btnReset.addEventListener("click", () => {
   blue.style.visibility = "hidden";
+  undone = [];
   render();
 });
