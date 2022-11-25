@@ -1,72 +1,63 @@
+import {
+  addRectangle,
+  getNewCoords,
+  renderCircles,
+  updateButtons,
+} from "./resto";
 import "./style.css";
-const svg = document.querySelector("svg");
+
+const rectangle = document.querySelector(".rectangle");
+
 const btnUndo = document.getElementById("btnUndo");
 const btnRedo = document.getElementById("btnRedo");
+const btnSave = document.getElementById("btnSave");
+const btnReset = document.getElementById("btnReset");
 
-const coordUndo = [];
-const coordRedo = [];
+let blue = document.querySelector(".blue");
 
-svg.addEventListener("click", (e) => {
-  const { pageX, pageY, currentTarget } = e;
+let coords = [];
+let undone = [];
+
+render();
+
+function render() {
+  renderCircles(rectangle, blue, coords);
+  updateButtons(btnRedo, btnUndo, coords, undone);
+}
+
+rectangle.addEventListener("click", (e) => {
+  const { pageX, pageY, currentTarget, target } = e;
   const { left, top } = currentTarget.getBoundingClientRect();
   const { pageXOffset, pageYOffset } = window;
   const x = pageX - left - pageXOffset;
   const y = pageY - top - pageYOffset;
-  const diameter = 30;
-
-  coordUndo.push([x, y]);
-  svg.innerHTML += createCircle([x, y], diameter);
+  if (currentTarget !== target) {
+    return;
+  }
+  coords.push({ x, y });
+  render();
+  undone = [];
 });
 
-function createCircle(center, diameter) {
-  return `
-    <circle
-        cx="${center[0]}"
-      cy="${center[1]}"
-      r="${diameter / 2}"
-      fill="black"
-    ></circle>
-  `;
-}
-
-function deleteCircle(center, diameter) {
-  return `
-      <circle
-          cx="${center[0]}"
-        cy="${center[1]}"
-        r="${diameter / 2}"
-        fill="white"
-      ></circle>
-    `;
-}
-
 btnUndo.addEventListener("click", () => {
-  const a = coordUndo[coordUndo.length - 1];
-  svg.innerHTML += deleteCircle(a, 30);
-  coordUndo.pop();
-  coordRedo.push(a);
+  const last = coords.pop();
+  undone.push(last);
+  render();
 });
 
 btnRedo.addEventListener("click", () => {
-  const b = coordRedo[coordRedo.length - 1];
-  svg.innerHTML += createCircle(b, 30);
-  coordRedo.pop();
-  coordUndo.push(b);
+  const last = undone.pop();
+  coords.push(last);
+  render();
 });
 
-function changeRectangle() {
-  let element = document.getElementById("rectangle");
-  const minX = document.querySelector('[name="minX"]').value;
-  const maxX = document.querySelector('[name="maxX"]').value;
-  const minY = document.querySelector('[name="minY"]').value;
-  const maxY = document.querySelector('[name="maxY"]').value;
+btnSave.addEventListener("click", () => {
+  blue = addRectangle(rectangle);
+  coords = getNewCoords(coords);
+  render();
+});
 
-  element.style.right = maxX;
-  element.style.left = minX;
-  element.style.top = maxY;
-  element.style.bottom = minY;
-}
-
-document.addEventListener("keypress", (event) => {
-  if (event.key === "Enter") changeRectangle();
+btnReset.addEventListener("click", () => {
+  blue.style.visibility = "hidden";
+  render();
 });

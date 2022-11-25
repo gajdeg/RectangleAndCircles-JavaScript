@@ -8,36 +8,38 @@
   </head>
   <body>
     <div class="container">
-      <div class="active" id="rectangle">
-        <svg></svg>
+      <div class="rectangle" id="rectangle">
+        <div class="blue"></div>
       </div>
     </div>
-    <div class="navbar">
+    <nav class="navbar">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <input type="text" name="minX" value="0" />
+          <input type="number" name="minX" value="0" />
           <label>minX</label>
         </li>
         <li class="nav-item">
-          <input type="text" name="maxX" value="500" />
+          <input type="number" name="maxX" max="500" value="500" />
           <label>maxX</label>
         </li>
         <li class="nav-item">
-          <input type="text" name="minY" value="0" />
+          <input type="number" name="minY" value="0" />
           <label>minY</label>
         </li>
         <li class="nav-item">
-          <input type="text" name="maxY" value="300" />
+          <input type="number" name="maxY" max="300" value="300" />
           <label>maxY</label>
         </li>
         <li class="nav-item">
-          <button id="btnUndo">UNDO</button>
+          <button id="btnSave">Save</button>
+          <button id="btnReset">Reset</button>
         </li>
         <li class="nav-item">
-          <button id="btnRedo">REDO</button>
+          <button id="btnUndo">Undo</button>
+          <button id="btnRedo">Redo</button>
         </li>
       </ul>
-    </div>
+    </nav>
     <script type="module" src="/main.js"></script>
   </body>
 </html>
