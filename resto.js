@@ -7,9 +7,17 @@ export function renderCircles(rectangle, blue, coords) {
   rectangle.innerHTML = innerHTML + blue.outerHTML;
 }
 
-export function updateButtons(btnRedo, btnUndo, coords, undone) {
+export function updateButtons(
+  btnRedo,
+  btnUndo,
+  btnClear,
+  coords,
+  undone,
+  blue
+) {
   btnRedo.disabled = undone.length === 0;
   btnUndo.disabled = coords.length === 0;
+  btnClear.disabled = blue.style.visibility === "hidden";
 }
 
 export function addRectangle(rectangle) {

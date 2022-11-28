@@ -11,7 +11,7 @@ const rectangle = document.querySelector(".rectangle");
 const btnUndo = document.getElementById("btnUndo");
 const btnRedo = document.getElementById("btnRedo");
 const btnSave = document.getElementById("btnSave");
-const btnReset = document.getElementById("btnReset");
+const btnClear = document.getElementById("btnClear");
 
 let blue = document.querySelector(".blue");
 
@@ -22,7 +22,7 @@ render();
 
 function render() {
   renderCircles(rectangle, blue, coords);
-  updateButtons(btnRedo, btnUndo, coords, undone);
+  updateButtons(btnRedo, btnUndo, btnClear, coords, undone, blue);
 }
 
 rectangle.addEventListener("click", (e) => {
@@ -58,7 +58,7 @@ btnSave.addEventListener("click", () => {
   render();
 });
 
-btnReset.addEventListener("click", () => {
+btnClear.addEventListener("click", () => {
   blue.style.visibility = "hidden";
   undone = [];
   render();
