@@ -45,7 +45,6 @@ export function getNewCoords(coords) {
   const minY = document.querySelector('[name="minY"]').value;
   const maxY = document.querySelector('[name="maxY"]').value;
 
-  console.log(coords);
   const result = coords.filter((coord) => {
     return coord.x < minX || coord.x > maxX || coord.y < minY || coord.y > maxY;
   });

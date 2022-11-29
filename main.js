@@ -12,6 +12,7 @@ const btnUndo = document.getElementById("btnUndo");
 const btnRedo = document.getElementById("btnRedo");
 const btnSave = document.getElementById("btnSave");
 const btnClear = document.getElementById("btnClear");
+const form = document.getElementById("myform");
 
 let blue = document.querySelector(".blue");
 
@@ -51,15 +52,35 @@ btnRedo.addEventListener("click", () => {
   render();
 });
 
-btnSave.addEventListener("click", () => {
+// btnSave.addEventListener("click", () => {
+//   blue = addRectangle(rectangle);
+//   coords = getNewCoords(coords);
+//   undone = [];
+//   render();
+// });
+
+// btnClear.addEventListener("click", () => {
+//   blue.style.visibility = "hidden";
+//   undone = [];
+//   render();
+// });
+
+form.addEventListener("submit", (e) => {
+  e.preventDefault();
+  btnSave.disabled = true;
   blue = addRectangle(rectangle);
   coords = getNewCoords(coords);
   undone = [];
   render();
 });
 
-btnClear.addEventListener("click", () => {
+form.addEventListener("reset", () => {
+  btnSave.disabled = false;
   blue.style.visibility = "hidden";
   undone = [];
   render();
+});
+
+form.addEventListener("change", function () {
+  btnSave.disabled = false;
 });
